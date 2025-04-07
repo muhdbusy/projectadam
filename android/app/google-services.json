@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "83001626821",
+    "project_id": "roboticarm-fac31",
+    "storage_bucket": "roboticarm-fac31.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83001626821:android:86d593c42229e438c060ac",
+        "android_client_info": {
+          "package_name": "com.example.authentication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBedfEyEyIETQM53mTTsRcjB2kKi9fUQ_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
