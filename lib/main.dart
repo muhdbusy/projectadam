@@ -1,3 +1,4 @@
+import 'package:day8_splash/dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,9 @@ import 'logindart.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(MyApp());
 }
 
@@ -22,15 +21,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'IoT Monitoring',
-      theme: ThemeData.dark(),
-      home: HomePage(), // ✅ Removed `const`
+      title: 'Smart Farming IoT',
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.green[800],
+        colorScheme: ColorScheme.dark(
+          primary: Colors.green[800]!,
+          secondary: Colors.lightGreen[400]!,
+        ),
+      ),
+      home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key}); // ✅ Removed `const`
+  HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -53,8 +58,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _scaleController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+    _scaleController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
 
     _scaleAnimation =
     Tween<double>(begin: 1.0, end: 0.8).animate(_scaleController)
@@ -64,8 +69,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       });
 
-    _widthController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _widthController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
 
     _widthAnimation =
     Tween<double>(begin: 80.0, end: 300.0).animate(_widthController)
@@ -75,8 +80,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       });
 
-    _positionController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
+    _positionController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
 
     _positionAnimation =
     Tween<double>(begin: 0.0, end: 215.0).animate(_positionController)
@@ -89,8 +94,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
       });
 
-    _scale2Controller =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+    _scale2Controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
 
     _scale2Animation =
     Tween<double>(begin: 1.0, end: 32.0).animate(_scale2Controller)
@@ -121,9 +126,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(1, 8, 24, 1),
+      backgroundColor: const Color.fromRGBO(1, 20, 12, 1), // Dark green background
       body: Stack(
         children: <Widget>[
+          // Animated background layers with farming imagery
           for (double i = -50, j = 1.0; i >= -150; i -= 50, j += 0.3)
             Positioned(
               top: i,
@@ -133,15 +139,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Container(
                   width: width,
                   height: 400,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/one.png'),
+                  decoration: BoxDecoration(
+                    image: const DecorationImage(
+                      image: AssetImage('assets/images/farm_background.png'), // Replace with your farm image
                       fit: BoxFit.cover,
                     ),
+                    color: Colors.black.withOpacity(0.4),
+                    backgroundBlendMode: BlendMode.darken,
                   ),
                 ),
               ),
             ),
+
+          // Green overlay for better text visibility
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Colors.black.withOpacity(0.9),
+                  Colors.transparent,
+                ],
+              ),
+            ),
+          ),
+
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -151,24 +174,46 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 const FadeAnimation(
                   1,
                   Text(
-                    "Welcome",
-                    style: TextStyle(color: Colors.white, fontSize: 50),
+                    "Smart Farming",
+                    style: TextStyle(
+                      color: Colors.lightGreenAccent,
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                FadeAnimation(
+                  1.3,
+                  Row(
+                    children: [
+                      Icon(Icons.eco, color: Colors.lightGreen[400], size: 24),
+                      const SizedBox(width: 8),
+                      Text(
+                        "IoT Monitoring System",
+                        style: TextStyle(
+                          color: Colors.lightGreen[200],
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 15),
                 FadeAnimation(
                   1.3,
                   Text(
-                    "We promise that you'll have the most \nfuss-free time with us ever.",
+                    "Monitor your crops, soil, and environment\nwith our precision agriculture solution.",
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
-
+                      color: Colors.white.withOpacity(0.8),
                       height: 1.4,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ),
-                const SizedBox(height: 180),
+                const SizedBox(height: 100), // Increased spacing
                 FadeAnimation(
                   1.6,
                   AnimatedBuilder(
@@ -184,7 +229,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              color: Colors.white.withOpacity(0.7),
+                              color: Colors.lightGreen[800]!.withOpacity(0.7),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.green[900]!.withOpacity(0.5),
+                                  blurRadius: 10,
+                                  spreadRadius: 2,
+                                ),
+                              ],
                             ),
                             child: InkWell(
                               onTap: () {
@@ -203,9 +255,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           child: Container(
                                             width: 60,
                                             height: 60,
-                                            decoration: const BoxDecoration(
+                                            decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              color: Colors.blue,
+                                              color: Colors.lightGreen[400],
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.lightGreen[400]!.withOpacity(0.5),
+                                                  blurRadius: 10,
+                                                  spreadRadius: 2,
+                                                ),
+                                              ],
                                             ),
                                             child: hideIcon == false
                                                 ? const Icon(
@@ -227,7 +286,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 40),
               ],
             ),
           ),

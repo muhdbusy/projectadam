@@ -10,8 +10,8 @@ plugins {
 
 android {
     namespace = "com.example.authentication"
-    compileSdkVersion 34 // Set to the latest SDK version, or as per your requirements
-    ndkVersion "23.1.7779620" // Specify your NDK version or use the version from Flutter settings
+    compileSdkVersion 35 // Set to the latest SDK version, or as per your requirements
+    ndkVersion  "25.1.8937393" // Specify your NDK version or use the version from Flutter settings
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
